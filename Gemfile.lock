@@ -86,7 +86,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  annotate-models (~> 1.0.4)
+  annotate-models (= 1.0.4)
   rails (= 3.0.0.rc2)
   rspec-rails (~> 2.0.0.beta.19)
   sqlite3-ruby
