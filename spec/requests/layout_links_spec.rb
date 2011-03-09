@@ -72,6 +72,12 @@ describe "when signed in" do
 	visit root_path
 	response.should have selector("a", :href => user_path(@user),
 										:content => "Profile")
+  end  
+  
+  it "should have a settings link"
+	visit root_path
+	response.should have selector("a", :href => edit_user_path(@user),
+										:content => "Settings")
   end
   
 end
