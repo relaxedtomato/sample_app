@@ -149,5 +149,25 @@ describe User do
 	  User.authenticate(@attr[:email], @attr[:password]).should == @user
 	end
   end
-  
 end
+
+ describe "admin attribute" do
+   
+   before(:each) do
+     @user = User.create!(@attr)
+   end
+   
+   
+   it "should respond to admin"
+     @user.should response_to(:admin)
+   end
+  
+   it "should not be an admin by default"
+     @user.should_not be_admin #rspec boolean
+   end
+   
+   it "should be convertable to an admin"
+     @user.toggle!(:admin)
+	 @user.should be_admin 
+   end
+ end
