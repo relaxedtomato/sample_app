@@ -149,25 +149,50 @@ describe User do
 	  User.authenticate(@attr[:email], @attr[:password]).should == @user
 	end
   end
-end
-
- describe "admin attribute" do
-   
-   before(:each) do
-     @user = User.create!(@attr)
-   end
-   
-   
-   it "should respond to admin"
-     @user.should response_to(:admin)
-   end
   
-   it "should not be an admin by default"
-     @user.should_not be_admin #rspec boolean
+  describe "admin attribute" do
+   
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+   
+   
+    it "should respond to admin"
+      @user.should response_to(:admin)
+    end
+  
+    it "should not be an admin by default"
+      @user.should_not be_admin #rspec boolean
+    end
+   
+    it "should be convertable to an admin"
+      @user.toggle!(:admin)
+	  @user.should be_admin 
+    end
    end
    
-   it "should be convertable to an admin"
-     @user.toggle!(:admin)
-	 @user.should be_admin 
-   end
- end
+  describe "micropost associations" do
+    before(:each) do
+	  @user = User.create(@attr)
+	  @mp1 = Factory(:microposts, :user => @user, :create_at => 1.day.ago)
+	  @mp2 = Factory(:microposts, :user => @user, :create_at => 1.hour.ago)
+	end
+	
+	it "should have a micropost attribute" do
+	  @user.should response_do(:microposts)
+	end
+	
+	it "should have the right microposts in the right order" do
+	  @user.microposts.should = [@mp2, @mp1]
+	end
+	
+	it "should destroy associated microposts" do
+	  @user.destroy
+	  [@mp1, @mp2].each do |micropost|
+	    lamda do
+		  Micropost.find(micropost.id)
+		end.should raise_error(ActiveRecord::RecordNotFound)
+	  end
+	end
+  end
+end
