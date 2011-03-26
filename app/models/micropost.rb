@@ -8,5 +8,4 @@ class Micropost < ActiveRecord::Base
   
   default_scope :order => 'microposts.created_at DESC'
   
-  
 end
