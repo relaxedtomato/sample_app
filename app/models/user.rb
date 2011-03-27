@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
   
+  def feed
+	Micropost.where("user_id = ?", id)
+  end
+  
   private
     
 	class << self #clarifies, a class level method

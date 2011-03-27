@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Micropost do
+describe "Micropost" do
   before(:each) do
 	@user = Factory(:user)
     @attr = { :content => "lorem ipsum"}
