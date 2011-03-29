@@ -5,9 +5,11 @@
 	  <%= gravatar_for @user, :size => 50 %>
 	  <%= @user.name %>
 	</h1>
+	<%= render 'follow_form' if signed_in? %>
 	<% if @user.micropost.any? %>
 	  <table class="microposts" summary="User microposts">
 		<%= render @micropost %>
+		<%= render 'shared/stats' %>
 	  </table>
 	  <%= will_paginate @micropost %>
 	<% end %>

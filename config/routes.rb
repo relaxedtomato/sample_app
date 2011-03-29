@@ -1,9 +1,15 @@
 SampleApp::Application.routes.draw do
   
   #get "sessions/new"
-  resources :sessions, :only => [:new, :create, :destroy]
-  resources :users
-  resources :microposts, :only => [:create, :destroy]
+  resources :users do
+	member do
+	  get :following, :followers
+	end
+  end
+  
+  resources :sessions, 		:only => [:new, :create, :destroy]
+  resources :microposts, 	:only => [:create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
   #get "users/new" eliminated as above line inserted
 
   # You can have the root of your site routed with "root"
